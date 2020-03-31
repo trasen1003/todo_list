@@ -43,4 +43,4 @@ commandes shell:
 				--terminate   (termine la tâche)
 
 
-vous trouverez ci-joint un fichier (tests.sh) qui lancera automatiquement quelques commandes tests dont vous pourrez obseerver les résultats à l'aide de la commande : "sh ./tests.sh"
+vous trouverez ci-joint un fichier (tests.sh) qui lancera automatiquement le makefile ansi que quelques commandes tests dont vous pourrez obseerver les résultats à l'aide de la commande : "sh ./tests.sh", n'hésitez pas à lire les commandes qui vont avec et à les exécuter aux alentours de 01:00 AM pour une meilleure mise en situation.

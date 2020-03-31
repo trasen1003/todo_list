@@ -121,6 +121,9 @@ void Todo_list::sauvegarder(string file){
 }
 
 void Todo_list::display(string discrimine){
+	cout << endl;
+	cout << "---TODO LIST---" << endl;
+	cout << endl;
 	for (vector<Task>::iterator it = liste.begin() ; it != liste.end(); it++){
 		if(discrimine == "none" or (*it).priority == discrimine){
 			//seul les orphelins sont appelés car les autres seront affichés par leurs parents (et ceci indépendemment de la priorité)

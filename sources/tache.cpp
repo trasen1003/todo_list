@@ -92,7 +92,7 @@ void Task::display_commentaires(int level){
 
 void Task::alinea(int level){
 	for(int i = 0; i<level; i++){
-		cout << "   ";
+		cout << "     ";
 	}
 }
 
