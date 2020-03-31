@@ -23,6 +23,8 @@ private:
 	vector<string> commentaires;
 	vector<int> sous_taches;
 
+	friend class Todo_list;
+
 public:
 	Task(int id, string title, string description, string statut, string priority, float avancement, struct tm * date_crea, struct tm* date_clot):id(id), title(title), description(description), statut(statut), priority(priority), avancement(avancement){
 //constructeur quand la tache est chargée du fichier de sauvegarde
@@ -70,7 +72,6 @@ public:
 		strcpy(tabheure, heure.c_str());
 		int hour = 10*((int)tabheure[0] - 48) + ((int)tabheure[1] - 48);	
 		int min = 10*((int)tabheure[3] - 48) + ((int)tabheure[4] - 48);	
-		cout << heure << endl;
 		date_cloture -> tm_hour = hour;
 		date_cloture -> tm_min = min;
 	}
@@ -86,7 +87,6 @@ public:
 
 		char res [100];
 		strftime (res,100,"%Y-%m-%d | %I:%M%p.",date);
-		cout << res << endl;
 	}
 	void add_comment(string comment){
 		commentaires.push_back(comment);
@@ -97,16 +97,21 @@ public:
 
 	friend ostream &operator<<(ostream& os, const Task& tache)
 	{
-		os << tache.id << "-" << tache.title << "-" << tache.description << "-" << tache.statut << "-" << tache.priority << "-" << tache.avancement << mktime(tache.date_creation) << "-" << mktime(tache.date_cloture) << "-@-";
+		os << tache.id << "#" << tache.title << "#" << tache.description << "#" << tache.statut << "#" << tache.priority << "#" << tache.avancement << "#"  << mktime(tache.date_creation) << "#" << mktime(tache.date_cloture) << "#@#";
 		for(int i=0; i<tache.commentaires.size(); i++){
-			os << tache.commentaires[i] << "-";	
+			os << tache.commentaires[i] << "#";	
 		}
-		os << "-@-";
+		os << "#@#";
 		for(int i=0; i<tache.sous_taches.size(); i++){
-			os << tache.sous_taches[i] << "-";	
+			os << tache.sous_taches[i] << "#";	
 		}
-		os << "-@-";
+		os << "#@#";
 		return os;
+	}
+	void display(){
+		cout << "###" << endl;
+		cout << title << " (id : " << id << ")" <<  " : " << description << endl;
+		cout << "priorité : " << priority <<", statut : " << statut << ", avancement : " << avancement << endl;
 	}
 	
 };

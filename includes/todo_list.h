@@ -11,14 +11,14 @@ using namespace std;
 
 class Todo_list{
 private:
-	vector<Task*> liste;	
+	vector<Task> liste;	
 public:
 	Todo_list (string file)
 	{
-		cout << "--- chargement ---" << endl;
 		ifstream in (file);
-		char delimiter = '-';
+		char delimiter = '#';
 		string res;
+
 		int id;
 		string title;
 		string description;
@@ -35,7 +35,6 @@ public:
 		int section = 0;
 		int i = 0;
 		while(getline(in,res,delimiter)){
-			cout << res << endl;
 			if(res != "\n"){
 			// les retours à la ligne ne sont là que pour aérer le fichier de sauvegarde
 				if(res == "@"){
@@ -79,13 +78,13 @@ public:
 					// on récupère les commentaires
 						break;
 					case 2:
-					//on récupères les sous-taches
+					//on récupères les sous#taches
 						break;
 					case 3:
 					//fin du chargement de la tache
 					{
 						Task *p = new Task(id,title,description,statut,priority,avancement,date_creation,date_cloture);
-						liste.push_back(p);
+						liste.push_back(*p);
 						i = 0;
 						section = 0;
 					}
@@ -97,18 +96,35 @@ public:
 				
 	}
 	void ajout_tache(Task *element){
-		liste.push_back(element);
+		liste.push_back(*element);
 	}
 	void sauvegarder(string file){
-		cout << "---sauvegarde---" << endl;
 		ofstream os (file);
-		for (vector<Task*>::iterator it = liste.begin() ; it != liste.end(); it++){
-			cout << "sauvegarde tache" << endl;
-			cout << **it;
-			os << **it << "\n-";
+		for (vector<Task>::iterator it = liste.begin() ; it != liste.end(); it++){
+			os << *it << "\n#";
 		}
 		os.close();	
 
+	}
+	bool empty(){
+		return liste.empty();
+	}
+	void display(){
+		for (vector<Task>::iterator it = liste.begin() ; it != liste.end(); it++){
+			(*it).display();
+		}
+	}
+	void remove(int id, bool all = false){
+		for (vector<Task>::iterator it = liste.begin() ; it != liste.end(); it++){
+			if(all or ((*it).id == id)){
+				liste.erase(it);
+				break;
+			}
+		}
+			if (all and not(liste.empty())){
+				remove(id,all);
+			
+		}
 	}
 };
 
